@@ -1,0 +1,56 @@
+class Stack:
+    def __init__(self):
+        self.items = []
+
+    def is_empty(self):
+        return len(self.items) == 0
+
+    def push(self, item):
+        self.items.append(item)
+
+    def pop(self):
+        if not self.is_empty():
+            return self.items.pop()
+        else:
+            return None
+
+    def peek(self):
+        if not self.is_empty():
+            return self.items[-1]
+        else:
+            return None
+
+    def size(self):
+        return len(self.items)
+
+def delete_middle(stack, current_index=0):
+    # Base case: If the stack is empty or we've reached the middle element.
+    if stack.is_empty() or current_index == stack.size() // 2:
+        stack.pop()
+        return
+
+    # Recursive case:
+    element = stack.pop()
+    current_index += 1
+
+    # Recursively delete the middle element while preserving the order.
+    delete_middle(stack, current_index)
+
+    # Re-push the other elements back onto the stack.
+    stack.push(element)
+
+# Example usage:
+if __name__ == "__main__":
+    my_stack = Stack()
+    my_stack.push(1)
+    my_stack.push(2)
+    my_stack.push(3)
+    my_stack.push(4)
+    my_stack.push(5)
+
+    print("Original Stack:", my_stack.items)
+
+    # Delete the middle element
+    delete_middle(my_stack)
+
+    print("Stack after deleting the middle element:", my_stack.items)
